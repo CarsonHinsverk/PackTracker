@@ -1,0 +1,25 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "declaration": true,
+        "declarationMap": true,
+        "noEmit": false,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "paths": {
+            "@/*": ["./src/*"],
+            "@monorepo/types": ["../types/dist/index.d.ts"]
+        },
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
+}

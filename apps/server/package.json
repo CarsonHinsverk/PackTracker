@@ -1,0 +1,117 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "nest build --path tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "dev": "nest start --watch --path tsconfig.json",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "dependencies": {
+    "@workspace/database": "workspace:*",
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/platform-express": "^11.0.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "@workspace/types": "workspace:*",
+    "@workspace/tcgdex": "workspace:*"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.18.0",
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.0.1",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.13.3",
+    "@types/supertest": "^7.0.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.2",
+    "globals": "^17.0.0",
+    "jest": "^30.0.0",
+    "prettier": "^3.4.2",
+    "source-map-support": "^0.5.21",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts",
+      "tsx"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": {
+            "jsx": "react"
+          }
+        }
+      ]
+    },
+    "collectCoverageFrom": [
+      "**/*.{ts,js}",
+      "!**/*.{spec,test}.{ts,js}",
+      "!**/__mocks__/**",
+      "!main.ts",
+      "!**/*.module.ts",
+      "!**/*.dto.ts",
+      "!**/*.entity.ts",
+      "!**/*.swagger.ts",
+      "!**/index.ts",
+      "!modules/prisma/**",
+      "!modules/logger/formatters/**"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^chalk$": "<rootDir>/__mocks__/chalk.ts",
+      "^winston$": "<rootDir>/__mocks__/winston.ts",
+      "^winston-daily-rotate-file$": "<rootDir>/__mocks__/winston-daily-rotate-file.ts",
+      "^uuid$": "<rootDir>/__mocks__/uuid.ts",
+      "^generated/prisma$": "<rootDir>/../generated/prisma",
+      "^@oslojs/encoding$": "<rootDir>/__mocks__/@oslojs/encoding.ts",
+      "^@oslojs/crypto/sha2$": "<rootDir>/__mocks__/@oslojs/crypto/sha2.ts",
+      "^@oslojs/crypto/subtle$": "<rootDir>/__mocks__/@oslojs/crypto/subtle.ts",
+      "^@oslojs/crypto$": "<rootDir>/__mocks__/@oslojs/crypto.ts",
+      "^src/modules/prisma/(.*)$": "<rootDir>/__mocks__/src/modules/prisma/$1",
+      "^src/modules/logger/(.*)$": "<rootDir>/__mocks__/src/modules/logger/$1",
+      "^src/common/(.*)$": "<rootDir>/common/$1",
+      "^src/modules/mail/templates/(.*)$": "<rootDir>/modules/mail/templates/$1",
+      "^./templates/reset-password-link$": "<rootDir>/__mocks__/email-template.ts",
+      "^./templates/email-verification$": "<rootDir>/__mocks__/email-template.ts",
+      "^./templates/account-locked$": "<rootDir>/__mocks__/email-template.ts",
+      "^ioredis$": "<rootDir>/__mocks__/ioredis.ts"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@oslojs|chalk|uuid).*)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test-setup.ts"
+    ]
+  }
+}

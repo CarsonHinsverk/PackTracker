@@ -1,0 +1,8 @@
+# Get a single user profile and their posts
+query GetAuthor($id: ID!) {
+    Author(id: $id) {
+        id
+        firstName
+        lastName
+    }
+}

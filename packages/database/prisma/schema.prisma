@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String   @id @default(cuid())
+  userName    String   @unique
+  displayName String?
+  email       String   @unique
+  createdAt   DateTime @default(now())
+
+  // Relational Fields for Prisma Query Builder
+  collection CollectionEntry[]
+  binders    Binder[]
+  decks      Deck[]
+}
+
+model CollectionEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  cardId    String
+  createdAt DateTime @default(now())
+
+  condition Int?
+  isGraded  Boolean
+  grader    Int?
+  grade     Int?
+
+  quantity Int
+  cost     Int
+
+  // Relational connection to User
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Binder {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String
+  description String
+  layout      Int
+  sortBy      Int
+
+  // Relational connections
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entries BinderEntry[]
+
+  @@index([userId])
+}
+
+model BinderEntry {
+  id       String @id @default(cuid())
+  binderId String
+  cardId   String
+
+  position  Int
+  isMissing Boolean
+
+  // Relation connection to Binder
+  binder Binder @relation(fields: [binderId], references: [id], onDelete: Cascade)
+
+  @@index([binderId])
+}
+
+model Deck {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String
+  format      Int
+  description String
+
+  // Relational connections
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entries DeckEntry[]
+
+  @@index([userId])
+}
+
+model DeckEntry {
+  id     String @id @default(cuid())
+  deckId String
+  cardId String
+
+  quantity Int
+
+  // Relation connection to Deck
+  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  @@index([deckId])
+}
